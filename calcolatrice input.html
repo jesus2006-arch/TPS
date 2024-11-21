@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatrice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            grid-gap: 10px;
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 340px;
+        }
+        input[type="text"] {
+            grid-column: span 4;
+            height: 50px;
+            font-size: 1.5em;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calcolatrice</h1>
+    <div class="calculator">
+        <input type="text" id="display" disabled/>
+        <!-- Tasti della calcolatrice -->
+        <button onclick="buttonClick('7')">7</button>
+        <button onclick="buttonClick('8')">8</button>
+        <button onclick="buttonClick('9')">9</button>
+        <button onclick="operationClick('+')">+</button>
+
+        <button onclick="buttonClick('4')">4</button>
+        <button onclick="buttonClick('5')">5</button>
+        <button onclick="buttonClick('6')">6</button>
+        <button onclick="operationClick('-')">-</button>
+
+        <button onclick="buttonClick('1')">1</button>
+        <button onclick="buttonClick('2')">2</button>
+        <button onclick="buttonClick('3')">3</button>
+        <button onclick="operationClick('*')">*</button>
+
+        <button onclick="buttonClick('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="equalsClick()">=</button>
+        <button onclick="operationClick('/')">/</button>
+    </div>
+
+    <script>
+        let firstNum = '';  
+        let secondNum = ''; 
+        let operator = '';  
+        let waitingForSecondNum = false; 
+
+        
+        function buttonClick(value) {
+            const display = document.getElementById('display');
+            if (waitingForSecondNum) {
+                display.value = value;
+                waitingForSecondNum = false;
+            } else {
+                display.value += value;
+            }
+        }
+
+        function operationClick(op) {
+            const display = document.getElementById('display');
+            firstNum = parseFloat(display.value);
+            operator = op;
+            waitingForSecondNum = true;
+        }
+
+        function equalsClick() {
+            const display = document.getElementById('display');
+            secondNum = parseFloat(display.value);
+            let result = 0;
+
+            if (operator === '+') {
+                result = firstNum + secondNum;
+            } else if (operator === '-') {
+                result = firstNum - secondNum;
+            } else if (operator === '*') {
+                result = firstNum * secondNum;
+            } else if (operator === '/') {
+                result = firstNum / secondNum;
+            }
+
+            display.value = result;
+            firstNum = result;
+            operator = '';
+            waitingForSecondNum = false;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+            firstNum = '';
+            secondNum = '';
+            operator = '';
+            waitingForSecondNum = false;
+        }
+    </script>
+
+</body>
+</html>

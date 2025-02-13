@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 9px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 13px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+td {
+  text-align: center;
+{
+</style>
+</head>
+<body>
+
+<h1>Tabella migranti</h1>
+
+<table id="customers">
+  <tr>
+    <th>Anno</th>
+    <th>Numero di persone sbarcate</th>
+  </tr>
+  <tr>
+    <td>1997</td>
+    <td>22343</td>
+  </tr>
+  <tr>
+    <td>1998</td>
+    <td>38134</td>
+  </tr>
+  <tr>
+    <td>1999</td>
+    <td>49999</td>
+  </tr>
+  <tr>
+    <td>2000</td>
+    <td>26817</td>
+  </tr>
+  <tr>
+    <td>2001</td>
+    <td>20143</td>
+  </tr>
+  <tr>
+    <td>2002</td>
+    <td>23719</td>
+  </tr>
+    <tr>
+    <td>2003</td>
+    <td>14331</td>
+  </tr>
+  <tr>
+    <td>2004</td>
+    <td>13635</td>
+  </tr>
+  <tr>
+    <td>2005</td>
+    <td>22939</td>
+  </tr>
+  <tr>
+    <td>2006</td>
+    <td>22016</td>
+  </tr>
+  <tr>
+    <td>2007</td>
+    <td>20455</td>
+  </tr>
+  <tr>
+    <td>2008</td>
+    <td>36951</td>
+  </tr>
+    <tr>
+    <td>2009</td>
+    <td>9573</td>
+  </tr>
+  <tr>
+    <td>2010</td>
+    <td>4406</td>
+  </tr>
+  <tr>
+    <td>2011</td>
+    <td>62692</td>
+  </tr>
+  <tr>
+    <td>2012</td>
+    <td>13267</td>
+  </tr>
+  <tr>
+    <td>2013</td>
+    <td>42925</td>
+  </tr>
+  <tr>
+    <td>2014</td>
+    <td>170100</td>
+  </tr>
+    <tr>
+    <td>2015</td>
+    <td>153842</td>
+  </tr>
+  <tr>
+    <td>2016</td>
+    <td>181436</td>
+  </tr>
+  <tr>
+    <td>2017</td>
+    <td>119369</td>
+  </tr>
+  <tr>
+    <td>2018</td>
+    <td>23370</td>
+  </tr>
+  <tr>
+    <td>2019</td>
+    <td>11471</td>
+  </tr>
+  <tr>
+    <td>2020</td>
+    <td>34154</td>
+  </tr>
+</table>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+const xValues = [22343,38134,49999,26817,20143,23719,14331,13635,22939,22016,20455,36951,9573,4406,62692,13267,42925,170100,153842,181436,119369,23370,11471,34154];
+const yValues = [1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020];
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: xValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      xAxes: [{ticks: {min: 1997, max:2020}}],
+    }
+  }
+});
+</script>
+</body>
+</html>
+
+

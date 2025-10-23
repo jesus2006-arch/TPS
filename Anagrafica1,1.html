@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Anagrafica Utente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+        #risultato {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>Inserisci i dati dell'utente</h2>
+    <form id="formAnagrafica">
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="text" id="cognome" placeholder="Cognome" required>
+        <input type="text" id="indirizzo" placeholder="Indirizzo" required>
+        <input type="text" id="citta" placeholder="Città" required>
+        <input type="text" id="cap" placeholder="CAP" required pattern="\\d{5}" title="Inserisci 5 cifre">
+        <label for="dataNascita">Data di nascita:</label>
+        <input type="date" id="dataNascita" required>
+        <button type="submit">Invia</button>
+    </form>
+    <div id="risultato"></div>
+    <script>
+        document.getElementById('formAnagrafica').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var nome = document.getElementById('nome').value;
+            var cognome = document.getElementById('cognome').value;
+            var indirizzo = document.getElementById('indirizzo').value;
+            var citta = document.getElementById('citta').value;
+            var cap = document.getElementById('cap').value;
+            var dataNascita = new Date(document.getElementById('dataNascita').value);
+            var anno = dataNascita.getFullYear();
+            var oggi = new Date();
+            var eta = oggi.getFullYear() - anno;
+            if (oggi.getMonth() < dataNascita.getMonth() || (oggi.getMonth() === dataNascita.getMonth() && oggi.getDate() < dataNascita.getDate())) eta--;
+            var generazione = "";
+            if (anno >= 2013) generazione = "Generazione Alpha";
+            else if (anno >= 1997) generazione = "Generazione Z";
+            else if (anno >= 1981) generazione = "Millennials";
+            else if (anno >= 1965) generazione = "Generazione X";
+            else if (anno >= 1946) generazione = "Baby Boomers";
+            else if (anno >= 1928) generazione = "Generazione Silenziosa";
+            else if (anno >= 1901) generazione = "Greatest Generation";
+            else generazione = "Generazione non definita";
+            var risultato = 
+                "<p> <strong>" + nome + " " + cognome + "</strong></p>" +
+                "<p> " + indirizzo + ", " + citta + " (" + cap + ")</p>" +
+                "<p> Età: " + eta + " anni</p>" +
+                "<p> Appartiene a: <strong>" + generazione + "</strong></p>";
+            document.getElementById('risultato').innerHTML = risultato;
+        });
+    </script>
+</body>
+</html>

@@ -50,7 +50,7 @@
   <button type="button" onclick="mostraDati()">Invia dati</button>
 </form>
 
-<h2>Dati in uscita:</h2>
+<h2>Dati:</h2>
 <div id="output"></div> 
 
 <script>
@@ -68,7 +68,7 @@ function mostraDati() {
     var sesso = "Non indicato";
     if (document.getElementById("s1").checked) sesso = "Maschio";
     if (document.getElementById("s2").checked) sesso = "Femmina";
-    if (document.getElementById("s3").checked) sesso = "Preferisco non dirlo";
+    if (document.getElementById("s3").checked) sesso = "Pre";
 
     var veicoli = "";
     if (document.getElementById("auto").checked) veicoli += "Auto ";

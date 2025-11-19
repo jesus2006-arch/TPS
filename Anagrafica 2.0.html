@@ -15,7 +15,6 @@
   <label for="citta">Città</label><br>
   <input type="text" id="citta"><br>
 
-  <!-- PROVINCIA (aggiunto) -->
   <label for="provincia">Provincia</label><br>
   <select id="provincia">
       <option value="">--seleziona--</option>
@@ -32,19 +31,16 @@
   <label for="dataNascita">Data di nascita</label><br>
   <input type="date" id="dataNascita"><br><br>
 
-  <!-- SESSO (aggiunto) -->
   <label>Sesso</label><br>
   <input type="radio" id="s1" name="sesso"> Maschio<br>
   <input type="radio" id="s2" name="sesso"> Femmina<br>
   <input type="radio" id="s3" name="sesso"> Altro<br><br>
 
-  <!-- VEICOLI POSSEDUTI (aggiunto) -->
   <label>Veicoli posseduti</label><br>
   <input type="checkbox" id="auto" value="Auto"> Auto<br>
   <input type="checkbox" id="moto" value="Moto"> Moto<br>
   <input type="checkbox" id="bici" value="Bici"> Bici<br><br>
 
-  <!-- SPORT PRATICATI (aggiunto) -->
   <label>Sport praticati</label><br>
   <input type="checkbox" id="sp1" value="Calcio"> Calcio<br>
   <input type="checkbox" id="sp2" value="Basket"> Basket<br>
@@ -67,22 +63,18 @@ function mostraDati() {
     var eta = document.getElementById("eta").value;
     var data = document.getElementById("dataNascita").value;
 
-    // PROVINCIA (aggiunto)
     var provincia = document.getElementById("provincia").value;
 
-    // SESSO (aggiunto)
     var sesso = "Non indicato";
-    if (document.getElementById("1").checked) sesso = "Maschio";
-    if (document.getElementById("2").checked) sesso = "Femmina";
-    if (document.getElementById("3").checked) sesso = "Preferisco non dirlo";
+    if (document.getElementById("s1").checked) sesso = "Maschio";
+    if (document.getElementById("s2").checked) sesso = "Femmina";
+    if (document.getElementById("s3").checked) sesso = "Preferisco non dirlo";
 
-    // VEICOLI (aggiunto)
     var veicoli = "";
     if (document.getElementById("auto").checked) veicoli += "Auto ";
     if (document.getElementById("moto").checked) veicoli += "Moto ";
     if (document.getElementById("bici").checked) veicoli += "Bici ";
-
-    // SPORT (aggiunto)
+	
     var sport = "";
     if (document.getElementById("sp1").checked) sport += "Calcio ";
     if (document.getElementById("sp2").checked) sport += "Basket ";
@@ -113,12 +105,12 @@ function mostraDati() {
         "<strong>Cognome:</strong> " + cognome + "<br>" +
         "<strong>Indirizzo:</strong> " + indirizzo + "<br>" +
         "<strong>Città:</strong> " + citta + "<br>" +
-        "<strong>Provincia:</strong> " + provincia + "<br>" +   <!-- aggiunto -->
+        "<strong>Provincia:</strong> " + provincia + "<br>" +   
         "<strong>CAP:</strong> " + cap + "<br>" +
         "<strong>Età:</strong> " + eta + "<br>" +
-        "<strong>Sesso:</strong> " + sesso + "<br>" +           <!-- aggiunto -->
-        "<strong>Veicoli posseduti:</strong> " + veicoli + "<br>" + <!-- aggiunto -->
-        "<strong>Sport praticati:</strong> " + sport + "<br>" +     <!-- aggiunto -->
+        "<strong>Sesso:</strong> " + sesso + "<br>" +           
+        "<strong>Veicoli posseduti:</strong> " + veicoli + "<br>" + 
+        "<strong>Sport praticati:</strong> " + sport + "<br>" +     
         "<strong>Anno di nascita:</strong> " + anno + "<br>" +
         "<strong>Generazione:</strong> " + generazione;
 }

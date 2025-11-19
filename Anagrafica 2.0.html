@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Anagrafica 1.1</h1>
+<h3>Inserire i propri dati</h3>
+
+<form>
+  <label for="nome">Nome</label><br>
+  <input type="text" id="nome"><br>
+
+  <label for="cognome">Cognome</label><br>
+  <input type="text" id="cognome"><br>
+
+  <label for="indirizzo">Indirizzo</label><br>
+  <input type="text" id="indirizzo"><br>
+
+  <label for="citta">Città</label><br>
+  <input type="text" id="citta"><br>
+
+  <label for="provincia">Provincia</label><br>
+  <select id="provincia">
+    <option value="">--seleziona--</option>
+    <option value="MI">MI</option>
+    <option value="RM">RM</option>
+    <option value="TO">TO</option>
+    <option value="NA">NA</option>
+  </select><br>
+
+  <label for="cap">CAP</label><br>
+  <input type="text" id="cap"><br>
+
+  <label for="eta">Età</label><br>
+  <input type="text" id="eta"><br>
+
+  <label for="dataNascita">Data di nascita</label><br>
+  <input type="date" id="dataNascita"><br><br>
+
+  <label>Sesso</label><br>
+  <input type="radio" id="s1" name="sesso"> Maschio<br>
+  <input type="radio" id="s2" name="sesso"> Femmina<br>
+  <input type="radio" id="s3" name="sesso"> Altro<br><br>
+
+  <label>Veicoli posseduti</label><br>
+  <input type="checkbox" id="auto" value="Auto"> Auto<br>
+  <input type="checkbox" id="moto" value="Moto"> Moto<br>
+  <input type="checkbox" id="bici" value="Bici"> Bici<br><br>
+
+  <label>Sport praticati</label><br>
+  <input type="checkbox" id="sp1" value="Calcio"> Calcio<br>
+  <input type="checkbox" id="sp2" value="Basket"> Basket<br>
+  <input type="checkbox" id="sp3" value="Pallavolo"> Pallavolo<br>
+  <input type="checkbox" id="sp4" value="Tennis"> Tennis<br><br>
+
+  <button type="button" onclick="mostraDati()">Invia dati</button>
+</form>
+
+<h2>Dati in uscita:</h2>
+<div id="output"></div> 
+
+<script>
+function mostraDati() {
+
+    var nome = document.getElementById("nome").value;
+    var cognome = document.getElementById("cognome").value;
+    var indirizzo = document.getElementById("indirizzo").value;
+    var citta = document.getElementById("citta").value;
+    var provincia = document.getElementById("provincia").value;
+    var cap = document.getElementById("cap").value;
+    var eta = document.getElementById("eta").value;
+    var data = document.getElementById("dataNascita").value;
+
+    // Sesso
+    var sesso = "Non indicato";
+    if (document.getElementById("s1").checked) sesso = "Maschio";
+    if (document.getElementById("s2").checked) sesso = "Femmina";
+    if (document.getElementById("s3").checked) sesso = "Altro";
+
+    // Veicoli
+    var veicoli = "";
+    if (document.getElementById("auto").checked) veicoli += "Auto ";
+    if (document.getElementById("moto").checked) veicoli += "Moto ";
+    if (document.getElementById("bici").checked) veicoli += "Bici ";
+
+    // Sport
+    var sport = "";
+    if (document.getElementById("sp1").checked) sport += "Calcio ";
+    if (document.getElementById("sp2").checked) sport += "Basket ";
+    if (document.getElementById("sp3").checked) sport += "Pallavolo ";
+    if (document.getElementById("sp4").checked) sport += "Tennis ";
+
+    // Calcolo generazione
+    var anno = new Date(data).getFullYear();
+    var generazione = "";
+
+    if (anno >= 2013) generazione = "Generazione Alpha";
+    else if (anno >= 1997) generazione = "Generazione Z";
+    else if (anno >= 1981) generazione = "Millennials";
+    else if (anno >= 1965) generazione = "Generazione X";
+    else if (anno >= 1946) generazione = "Baby Boomers";
+    else if (anno >= 1928) generazione = "Generazione Silenziosa";
+    else if (anno >= 1901) generazione = "Greatest Generation";
+
+    document.getElementById("output").innerHTML =
+        "<strong>Nome:</strong> " + nome + "<br>" +
+        "<strong>Cognome:</strong> " + cognome + "<br>" +
+        "<strong>Indirizzo:</strong> " + indirizzo + "<br>" +
+        "<strong>Città:</strong> " + citta + "<br>" +
+        "<strong>Provincia:</strong> " + provincia + "<br>" +
+        "<strong>CAP:</strong> " + cap + "<br>" +
+        "<strong>Età:</strong> " + eta + "<br>" +
+        "<strong>Sesso:</strong> " + sesso + "<br>" +
+        "<strong>Veicoli posseduti:</strong> " + veicoli + "<br>" +
+        "<strong>Sport praticati:</strong> " + sport + "<br>" +
+        "<strong>Anno di nascita:</strong> " + anno + "<br>" +
+        "<strong>Generazione:</strong> " + generazione;
+}
+</script>
+
+</body>
+</html>
 

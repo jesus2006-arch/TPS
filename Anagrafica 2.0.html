@@ -34,7 +34,7 @@
   <label>Sesso</label><br>
   <input type="radio" id="s1" name="sesso"> Maschio<br>
   <input type="radio" id="s2" name="sesso"> Femmina<br>
-  <input type="radio" id="s3" name="sesso"> Altro<br><br>
+  <input type="radio" id="s3" name="sesso"> Preferisco non dirlo<br><br>
 
   <label>Veicoli posseduti</label><br>
   <input type="checkbox" id="auto" value="Auto"> Auto<br>
@@ -68,7 +68,7 @@ function mostraDati() {
     var sesso = "Non indicato";
     if (document.getElementById("s1").checked) sesso = "Maschio";
     if (document.getElementById("s2").checked) sesso = "Femmina";
-    if (document.getElementById("s3").checked) sesso = "Pre";
+    if (document.getElementById("s3").checked) sesso = "Preferisco non dirlo";
 
     var veicoli = "";
     if (document.getElementById("auto").checked) veicoli += "Auto ";

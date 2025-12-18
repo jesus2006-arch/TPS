@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcolatrice</title>
+</head>
+<body>
+
+<h2>Calcolatrice semplice</h2>
+
+<input type="text" id="display" readonly><br><br>
+
+<button onclick="aggiungi('1')">1</button>
+<button onclick="aggiungi('2')">2</button>
+<button onclick="aggiungi('3')">3</button>
+<button onclick="aggiungi('+')">+</button><br>
+
+<button onclick="aggiungi('4')">4</button>
+<button onclick="aggiungi('5')">5</button>
+<button onclick="aggiungi('6')">6</button>
+<button onclick="aggiungi('-')">-</button><br>
+
+<button onclick="aggiungi('7')">7</button>
+<button onclick="aggiungi('8')">8</button>
+<button onclick="aggiungi('9')">9</button>
+<button onclick="aggiungi('*')">*</button><br>
+
+<button onclick="aggiungi('0')">0</button>
+<button onclick="aggiungi('.')">.</button>
+<button onclick="calcola()">=</button>
+<button onclick="aggiungi('/')">/</button><br><br>
+
+<button onclick="potenza()">x²</button>
+<button onclick="radice()">√</button>
+<button onclick="percentuale()">%</button><br><br>
+
+<button onclick="seno()">sin</button>
+<button onclick="coseno()">cos</button>
+<button onclick="tangente()">tan</button><br><br>
+
+<button onclick="memoriaSalva()">MS</button>
+<button onclick="memoriaRichiama()">MR</button>
+<button onclick="pulisci()">C</button>
+
+<script>
+  let memoria = 0;
+
+  function aggiungi(valore) {
+    document.getElementById("display").value += valore;
+  }
+
+  function calcola() {
+    let espressione = document.getElementById("display").value;
+    document.getElementById("display").value = eval(espressione);
+  }
+
+  function pulisci() {
+    document.getElementById("display").value = "";
+  }
+
+  function potenza() {
+    let x = parseFloat(document.getElementById("display").value);
+    document.getElementById("display").value = Math.pow(x, 2);
+  }
+
+  function radice() {
+    let x = parseFloat(document.getElementById("display").value);
+    document.getElementById("display").value = Math.sqrt(x);
+  }
+
+  function percentuale() {
+    let x = parseFloat(document.getElementById("display").value);
+    document.getElementById("display").value = x / 100;
+  }
+
+  function seno() {
+    let x = parseFloat(document.getElementById("display").value);
+    document.getElementById("display").value = Math.sin(x);
+  }
+
+  function coseno() {
+    let x = parseFloat(document.getElementById("display").value);
+    document.getElementById("display").value = Math.cos(x);
+  }
+
+  function tangente() {
+    let x = parseFloat(document.getElementById("display").value);
+    document.getElementById("display").value = Math.tan(x);
+  }
+
+  function memoriaSalva() {
+    memoria = parseFloat(document.getElementById("display").value);
+  }
+
+  function memoriaRichiama() {
+    document.getElementById("display").value = memoria;
+  }
+</script>
+
+</body>
+</html>

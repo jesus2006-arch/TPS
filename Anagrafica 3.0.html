@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserisci Dati</title>
+</head>
+<body>
 
+    <h1>Inserisci Dati</h1>
+
+    <div>
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="text" id="cognome" placeholder="Cognome">
+        <input type="number" id="eta" placeholder="Età">
+        <input type="text" id="colore_occhi" placeholder="Colore Occhi">
+        <button onclick="aggiungiDati()">Aggiungi Dati</button>
+    </div>
+
+    <h2>Dati Inseriti:</h2>
+    <pre id="risultato"></pre>
+
+    <script>
+        let collection = [];
+
+        function aggiungiDati() {
+            const nome = document.getElementById('nome').value;
+            const cognome = document.getElementById('cognome').value;
+            const eta = document.getElementById('eta').value;
+            const colore_occhi = document.getElementById('colore_occhi').value;
+
+            if (nome && cognome && eta && colore_occhi) {
+                collection.push("ID: " + (collection.length + 1) + ", Nome: " + nome + ", Cognome: " + cognome + ", Età: " + eta + ", Colore Occhi: " + colore_occhi);
+            }
+
+            document.getElementById('nome').value = '';
+            document.getElementById('cognome').value = '';
+            document.getElementById('eta').value = '';
+            document.getElementById('colore_occhi').value = '';
+
+            mostraDati();
+        }
+
+        function mostraDati() {
+            let risultatoStringa = '';
+            for (let i = 0; i < collection.length; i++) {
+                risultatoStringa += collection[i] + '\n';
+            }
+            document.getElementById('risultato').textContent = risultatoStringa;
+        }
+    </script>
+
+</body>
+</html>

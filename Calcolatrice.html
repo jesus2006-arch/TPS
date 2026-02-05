@@ -1,101 +1,129 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Calcolatrice</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolatrice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .display {
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-align: right;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            padding: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
 </head>
 <body>
+    <div class="calculator">
+        <div id="display" class="display">0</div>
+        <div class="buttons">
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+            <button class="button" onclick="appendToDisplay('+')">+</button>
 
-<h2>Calcolatrice semplice</h2>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+            <button class="button" onclick="appendToDisplay('-')">-</button>
 
-<input type="text" id="display" readonly><br><br>
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+            <button class="button" onclick="appendToDisplay('')"></button>
 
-<button onclick="aggiungi('1')">1</button>
-<button onclick="aggiungi('2')">2</button>
-<button onclick="aggiungi('3')">3</button>
-<button onclick="aggiungi('+')">+</button><br>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="button" onclick="appendToDisplay('.')">.</button>
+            <button class="button" onclick="calculateResult()">=</button>
+            <button class="button" onclick="appendToDisplay('/')">/</button>
+        </div>
+        <div class="buttons">
+            <button class="button" onclick="appendToDisplay('^')">^</button>
+            <button class="button" onclick="appendToDisplay('sqrt')">√</button>
+            <button class="button" onclick="appendToDisplay('%')">%</button>
+            <button class="button" onclick="appendToDisplay('sin')">sin</button>
+        </div>
+        <div class="buttons">
+            <button class="button" onclick="clearDisplay()">C</button>
+            <button class="button" onclick="appendToDisplay('cos')">cos</button>
+            <button class="button" onclick="appendToDisplay('tan')">tan</button>
+        </div>
+    </div>
 
-<button onclick="aggiungi('4')">4</button>
-<button onclick="aggiungi('5')">5</button>
-<button onclick="aggiungi('6')">6</button>
-<button onclick="aggiungi('-')">-</button><br>
+    <script>
+        let currentInput = '';
+        let memory = [];
 
-<button onclick="aggiungi('7')">7</button>
-<button onclick="aggiungi('8')">8</button>
-<button onclick="aggiungi('9')">9</button>
-<button onclick="aggiungi('*')">*</button><br>
+        function appendToDisplay(value) {
+            currentInput += value;
+            document.getElementById("display").innerText = currentInput;
+        }
 
-<button onclick="aggiungi('0')">0</button>
-<button onclick="aggiungi('.')">.</button>
-<button onclick="calcola()">=</button>
-<button onclick="aggiungi('/')">/</button><br><br>
+        function clearDisplay() {
+            currentInput = '';
+            document.getElementById("display").innerText = '0';
+        }
 
-<button onclick="potenza()">x²</button>
-<button onclick="radice()">√</button>
-<button onclick="percentuale()">%</button><br><br>
-
-<button onclick="seno()">sin</button>
-<button onclick="coseno()">cos</button>
-<button onclick="tangente()">tan</button><br><br>
-
-<button onclick="memoriaSalva()">MS</button>
-<button onclick="memoriaRichiama()">MR</button>
-<button onclick="pulisci()">C</button>
-
-<script>
-  let memoria = 0;
-
-  function aggiungi(valore) {
-    document.getElementById("display").value += valore;
-  }
-
-  function calcola() {
-    let espressione = document.getElementById("display").value;
-    document.getElementById("display").value = eval(espressione);
-  }
-
-  function pulisci() {
-    document.getElementById("display").value = "";
-  }
-
-  function potenza() {
-    let x = parseFloat(document.getElementById("display").value);
-    document.getElementById("display").value = Math.pow(x, 2);
-  }
-
-  function radice() {
-    let x = parseFloat(document.getElementById("display").value);
-    document.getElementById("display").value = Math.sqrt(x);
-  }
-
-  function percentuale() {
-    let x = parseFloat(document.getElementById("display").value);
-    document.getElementById("display").value = x / 100;
-  }
-
-  function seno() {
-    let x = parseFloat(document.getElementById("display").value);
-    document.getElementById("display").value = Math.sin(x);
-  }
-
-  function coseno() {
-    let x = parseFloat(document.getElementById("display").value);
-    document.getElementById("display").value = Math.cos(x);
-  }
-
-  function tangente() {
-    let x = parseFloat(document.getElementById("display").value);
-    document.getElementById("display").value = Math.tan(x);
-  }
-
-  function memoriaSalva() {
-    memoria = parseFloat(document.getElementById("display").value);
-  }
-
-  function memoriaRichiama() {
-    document.getElementById("display").value = memoria;
-  }
-</script>
-
+        function calculateResult() {
+            try {
+                let result;
+                if (currentInput.includes('^')) {
+                    let parts = currentInput.split('^');
+                    result = Math.pow(parseFloat(parts[0]), parseFloat(parts[1]));
+                } else if (currentInput === 'sqrt') {
+                    result = Math.sqrt(parseFloat(memory.pop()));
+                } else if (currentInput === '%') {
+                    result = parseFloat(memory.pop()) * 0.01;
+                } else if (currentInput.includes('sin')) {
+                    result = Math.sin(parseFloat(currentInput.replace('sin', '')));
+                } else if (currentInput.includes('cos')) {
+                    result = Math.cos(parseFloat(currentInput.replace('cos', '')));
+                } else if (currentInput.includes('tan')) {
+                    result = Math.tan(parseFloat(currentInput.replace('tan', '')));
+                } else {
+                    result = eval(currentInput);
+                }
+                memory.push(result);
+                currentInput = result.toString();
+                document.getElementById("display").innerText = result;
+            } catch (error) {
+                document.getElementById("display").innerText = 'Errore';
+                currentInput = '';
+            }
+        }
+    </script>
 </body>
 </html>

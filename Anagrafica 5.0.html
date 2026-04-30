@@ -1,63 +1,183 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Esercizio Anagrafica Validata</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .contenitore {
+            background-color: white;
+            border: 2px solid #8a2be2;
+            padding: 20px;
+            width: 400px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: #4b0082;
+        }
+
+        input {
+            margin-bottom: 10px;
+            display: block;
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #4b0082;
+        }
+
+        .messaggio-errore {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+
+        table, th, td {
+            border: 1px solid #8a2be2;
+        }
+
+        th {
+            background-color: #e6ccff;
+            padding: 8px;
+        }
+
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
 <body>
-<h1>Anagrafica 5.0 - Inserimento</h1>
 
-Nome: <input type="text" id="nome"><br>
-Cognome: <input type="text" id="cognome"><br>
-Età: <input type="text" id="eta"><br>
-CAP: <input type="text" id="cap"><br>
-Email: <input type="text" id="email"><br>
-Colore occhi: <input type="text" id="occhi"><br><br>
+    <div class="contenitore">
+        <h2>Inserisci Dati</h2>
+        
+        <div id="erroreGenerico" class="messaggio-errore">Per favore, controlla i campi inseriti.</div>
 
-<button onclick="salva()">Aggiungi</button>
+        <input type="text" id="campoNome" placeholder="Nome (solo lettere)">
+        <input type="text" id="campoCognome" placeholder="Cognome (solo lettere)">
+        <input type="text" id="campoEmail" placeholder="Email (es. nome@dominio.it)">
+        <input type="text" id="campoCAP" placeholder="CAP (5 numeri)">
+        <input type="text" id="campoCitta" placeholder="Città">
 
-<script>
-function salva() {
+        <button onclick="salvaDati()">Invia Dati</button>
+    </div>
 
-  const nome = document.getElementById("nome").value;
-  const cognome = document.getElementById("cognome").value;
-  const eta = document.getElementById("eta").value;
-  const cap = document.getElementById("cap").value;
-  const email = document.getElementById("email").value;
-  const occhi = document.getElementById("occhi").value;
+    <h2>Tabella Risultati</h2>
+    <table id="tabellaDati">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>CAP</th>
+                <th>Città</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
-  // REGEX
-  const regNome = /^[A-Za-z]+$/;
-  const regCap = /^[0-9]+$/;
-  const regEmail = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,6}$/;
+    <script>
+        var elencoDati = [];
 
-  if (!regNome.test(nome)) {
-    alert("Nome valido solo con lettere");
-    return;
-  }
+        function salvaDati() {
+            var nome = document.getElementById("campoNome").value;
+            var cognome = document.getElementById("campoCognome").value;
+            var email = document.getElementById("campoEmail").value;
+            var cap = document.getElementById("campoCAP").value;
+            var citta = document.getElementById("campoCitta").value;
+            var boxErrore = document.getElementById("erroreGenerico");
 
-  if (!regNome.test(cognome)) {
-    alert("Cognome valido solo con lettere");
-    return;
-  }
+            var regexLettere = /^[a-zA-Z\sàèìòùÀÈÌÒÙ]+$/;
+            var regexCAP = /^[0-9]{5}$/;
+            var regexEmail = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$/;
 
-  if (!regCap.test(cap)) {
-    alert("CAP valido solo con numeri");
-    return;
-  }
+            var errore = "";
 
-  if (!regEmail.test(email)) {
-    alert("Email non valida");
-    return;
-  }
+            if (!regexLettere.test(nome)) {
+                errore += "Nome non valido. ";
+            }
+            if (!regexLettere.test(cognome)) {
+                errore += "Cognome non valido. ";
+            }
+            if (!regexEmail.test(email)) {
+                errore += "Email non valida. ";
+            }
+            if (!regexCAP.test(cap)) {
+                errore += "CAP deve contenere 5 numeri. ";
+            }
+            if (citta == "") {
+                errore += "Inserire la città. ";
+            }
 
-  let elenco = localStorage.getItem("elenco");
-  elenco = elenco ? JSON.parse(elenco) : [];
+            if (errore !== "") {
+                boxErrore.innerHTML = errore;
+                boxErrore.style.display = "block";
+                return;
+            } else {
+                boxErrore.style.display = "none";
+            }
 
-  const persona = { nome, cognome, eta, cap, email, occhi };
+            var nuovoOggetto = {
+                n: nome,
+                c: cognome,
+                e: email,
+                cp: cap,
+                cit: citta
+            };
 
-  elenco.push(persona);
+            elencoDati.push(nuovoOggetto);
 
-  localStorage.setItem("elenco", JSON.stringify(elenco));
+            document.getElementById("campoNome").value = "";
+            document.getElementById("campoCognome").value = "";
+            document.getElementById("campoEmail").value = "";
+            document.getElementById("campoCAP").value = "";
+            document.getElementById("campoCitta").value = "";
 
-  alert("Persona salvata!");
-}
-</script>
+            mostraTabella();
+        }
+
+        function mostraTabella() {
+            var corpoTabella = document.getElementById("tabellaDati").getElementsByTagName('tbody')[0];
+            corpoTabella.innerHTML = "";
+
+            for (var i = 0; i < elencoDati.length; i++) {
+                var riga = corpoTabella.insertRow();
+                
+                riga.insertCell(0).innerHTML = elencoDati[i].n;
+                riga.insertCell(1).innerHTML = elencoDati[i].c;
+                riga.insertCell(2).innerHTML = elencoDati[i].e;
+                riga.insertCell(3).innerHTML = elencoDati[i].cp;
+                riga.insertCell(4).innerHTML = elencoDati[i].cit;
+            }
+        }
+    </script>
+
 </body>
 </html>

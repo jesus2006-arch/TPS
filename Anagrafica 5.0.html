@@ -4,13 +4,11 @@
     <title>Esercizio Anagrafica Validata</title>
     <style>
         body {
-            background-color: #9daff6;
             font-family: Arial, sans-serif;
             padding: 20px;
         }
 
         .contenitore {
-            background-color: white;
             border: 2px solid #e22b2b;
             padding: 20px;
             width: 400px;
@@ -41,7 +39,6 @@
         }
 
         button:hover {
-            background-color: #02056e;
         }
 
         .messaggio-errore {
@@ -133,7 +130,6 @@
             if (!regexCAP.test(cap)) {
                 errore += "CAP deve contenere 5 numeri. ";
             }
-            // MODIFICA QUI: Controllo lettere per la città invece del solo controllo vuoto
             if (!regexLettere.test(citta)) {
                 errore += "Città non valida (usa solo lettere). ";
             }

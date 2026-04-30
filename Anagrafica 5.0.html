@@ -4,20 +4,21 @@
     <title>Esercizio Anagrafica Validata</title>
     <style>
         body {
+            background-color: #9daff6;
             font-family: Arial, sans-serif;
             padding: 20px;
         }
 
         .contenitore {
             background-color: white;
-            border: 2px ;
+            border: 2px solid #e22b2b;
             padding: 20px;
             width: 400px;
             border-radius: 10px;
         }
 
         h2 {
-            color: #4b0082;
+            color: #20aaaf;
         }
 
         input {
@@ -30,7 +31,7 @@
         }
 
         button {
-            background-color: #8a2be2;
+            background-color: #20aaaf;
             color: white;
             border: none;
             padding: 10px;
@@ -40,7 +41,7 @@
         }
 
         button:hover {
-            background-color: #4b0082;
+            background-color: #02056e;
         }
 
         .messaggio-errore {
@@ -58,7 +59,7 @@
         }
 
         table, th, td {
-            border: 1px solid #8a2be2;
+            border: 1px solid #2b53e2;
         }
 
         th {
@@ -83,7 +84,7 @@
         <input type="text" id="campoCognome" placeholder="Cognome (solo lettere)">
         <input type="text" id="campoEmail" placeholder="Email (es. nome@dominio.it)">
         <input type="text" id="campoCAP" placeholder="CAP (5 numeri)">
-        <input type="text" id="campoCitta" placeholder="Città">
+        <input type="text" id="campoCitta" placeholder="Città (solo lettere)">
 
         <button onclick="salvaDati()">Invia Dati</button>
     </div>
@@ -132,8 +133,9 @@
             if (!regexCAP.test(cap)) {
                 errore += "CAP deve contenere 5 numeri. ";
             }
-            if (citta == "") {
-                errore += "Inserire la città. ";
+            // MODIFICA QUI: Controllo lettere per la città invece del solo controllo vuoto
+            if (!regexLettere.test(citta)) {
+                errore += "Città non valida (usa solo lettere). ";
             }
 
             if (errore !== "") {

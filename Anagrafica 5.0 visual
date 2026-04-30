@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Anagrafica 5.0 - Visualizzazione</h1>
 
+<table border="1">
+<tr>
+<th>Nome</th>
+<th>Cognome</th>
+<th>Età</th>
+<th>CAP</th>
+<th>Email</th>
+<th>Occhi</th>
+</tr>
+<tbody id="tabella">
+</tbody>
+</table>
+
+<script>
+let elenco = localStorage.getItem("elenco");
+elenco = elenco ? JSON.parse(elenco) : [];
+
+let testo = "";
+
+for (let i = 0; i < elenco.length; i++) {
+  testo += "<tr>";
+  testo += "<td>" + elenco[i].nome + "</td>";
+  testo += "<td>" + elenco[i].cognome + "</td>";
+  testo += "<td>" + elenco[i].eta + "</td>";
+  testo += "<td>" + elenco[i].cap + "</td>";
+  testo += "<td>" + elenco[i].email + "</td>";
+  testo += "<td>" + elenco[i].occhi + "</td>";
+  testo += "</tr>";
+}
+
+document.getElementById("tabella").innerHTML = testo;
+</script>
+
+</body>
+</html>

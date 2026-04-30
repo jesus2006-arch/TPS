@@ -1,40 +1,51 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Anagrafica 5.0 - Visualizzazione</h1>
 
-<table border="1">
-<tr>
-<th>Nome</th>
-<th>Cognome</th>
-<th>Età</th>
-<th>CAP</th>
-<th>Email</th>
-<th>Occhi</th>
-</tr>
-<tbody id="tabella">
-</tbody>
-</table>
+<style>
+  #app { padding: 1rem 0; font-family: var(--font-sans); }
+  input[type=file] { margin-bottom: 1.5rem; }
+  #griglia {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    background: #EEEDFE;
+    border: 1px solid #AFA9EC;
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .card p { font-size: 14px; color: #26215C; margin: 3px 0; }
+  .card p span { color: #7F77DD; font-size: 12px; }
+</style>
+
+<div id="app">
+  <h2 style="color:#534AB7;font-weight:500;margin-bottom:10px;">Anagrafica CSV</h2>
+  <input type="file" accept=".csv" onchange="caricaCSV(this)">
+  <div id="griglia"></div>
+</div>
 
 <script>
-let elenco = localStorage.getItem("elenco");
-elenco = elenco ? JSON.parse(elenco) : [];
+function caricaCSV(input) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const righe = e.target.result.trim().split('\n');
+    const sep = righe[0].includes(';') ? ';' : ',';
+    const colonne = righe[0].split(sep).map(c => c.trim());
+    const griglia = document.getElementById('griglia');
+    griglia.innerHTML = '';
 
-let testo = "";
+    for (let i = 1; i < righe.length; i++) {
+      const valori = righe[i].split(sep).map(v => v.trim());
+      const card = document.createElement('div');
+      card.className = 'card';
 
-for (let i = 0; i < elenco.length; i++) {
-  testo += "<tr>";
-  testo += "<td>" + elenco[i].nome + "</td>";
-  testo += "<td>" + elenco[i].cognome + "</td>";
-  testo += "<td>" + elenco[i].eta + "</td>";
-  testo += "<td>" + elenco[i].cap + "</td>";
-  testo += "<td>" + elenco[i].email + "</td>";
-  testo += "<td>" + elenco[i].occhi + "</td>";
-  testo += "</tr>";
+      colonne.forEach(function(col, j) {
+        card.innerHTML += '<p><span>' + col + '</span><br>' + (valori[j] || '') + '</p>';
+      });
+
+      griglia.appendChild(card);
+    }
+  };
+  reader.readAsText(input.files[0], 'UTF-8');
 }
-
-document.getElementById("tabella").innerHTML = testo;
 </script>
 
-</body>
-</html>

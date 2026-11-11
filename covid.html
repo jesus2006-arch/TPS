@@ -1,0 +1,87 @@
+Ecco il codice completo senza commenti, lasciando invariato tutto il resto.
+
+HTMLAjustar líneasCopiar códigoVista previa
+
+```html
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>COVID-19 - Andamento nazionale</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #contenitore { overflow-x: auto; }
+    table { border-collapse: collapse; font-size: 13px; }
+    th, td { border: 1px solid #999; padding: 4px 8px; white-space: nowrap; }
+    th { background: #eee; }
+  </style>
+</head>
+<body>
+
+  <h2>COVID-19 - Andamento nazionale</h2>
+  <p id="messaggio">Caricamento dati in corso...</p>
+
+  <div id="contenitore">
+    <table id="tabella">
+      <thead id="testata"></thead>
+      <tbody id="corpoTabella"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const indirizzo = "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json";
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", indirizzo, true);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const obj = JSON.parse(xhr.responseText);
+          creaTabella(obj);
+        } else {
+          document.getElementById("messaggio").textContent =
+            "Errore nel caricamento dei dati (status " + xhr.status + ")";
+        }
+      }
+    };
+
+    xhr.send();
+
+    function creaTabella(obj) {
+      const keys = Object.keys(obj[0]);
+      const numeroChiavi = keys.length;
+
+      const thead = document.getElementById("testata");
+      const tbody = document.getElementById("corpoTabella");
+
+      const rigaIntestazione = document.createElement("tr");
+      for (let i = 0; i < numeroChiavi; i++) {
+        const th = document.createElement("th");
+        th.textContent = keys[i];
+        rigaIntestazione.appendChild(th);
+      }
+      thead.appendChild(rigaIntestazione);
+
+      const frammento = document.createDocumentFragment();
+      for (let r = 0; r < obj.length; r++) {
+        const riga = document.createElement("tr");
+        for (let i = 0; i < numeroChiavi; i++) {
+          const cella = document.createElement("td");
+          const valore = obj[r][keys[i]];
+          cella.textContent = (valore === null) ? "" : valore;
+          riga.appendChild(cella);
+        }
+        frammento.appendChild(riga);
+      }
+      tbody.appendChild(frammento);
+
+      document.getElementById("messaggio").textContent =
+        "Record caricati: " + obj.length + " - Colonne: " + numeroChiavi;
+    }
+  </script>
+
+</body>
+</html>
+```

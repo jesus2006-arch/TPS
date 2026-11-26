@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Convertitore in Euro</title>
+</head>
+<body>
+<h2>Convertitore in Euro</h2>
+Divisa: <select id="divisa"></select><br><br>
+Quantità: <input id="quantita" value="100"><br><br>
+<b id="risultato"></b>
 
+<script>
+var tassi = {};
+
+function calcola() {
+  var q = quantita.value.replace(",", ".");
+  risultato.innerHTML = (q / tassi[divisa.value]).toFixed(2) + " EUR";
+}
+
+function riempi() {
+  divisa.innerHTML = "";
+  for (var d in tassi) divisa.add(new Option(d));
+  calcola();
+}
+
+async function scarica() {
+  try {
+    var r = await fetch("https://proxy.cors.dev/https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml");
+    var testo = await r.text();
+    var c = new DOMParser().parseFromString(testo, "text/xml").querySelectorAll("Cube[currency]");
+    for (var i = 0; i < c.length; i++) tassi[c[i].getAttribute("currency")] = c[i].getAttribute("rate");
+    riempi();
+  } catch (e) {
+    console.log("Errore download tassi:", e);
+  }
+}
+
+divisa.onchange = quantita.oninput = calcola;
+scarica();
+</script>
+</body>
+</html>
